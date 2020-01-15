@@ -26,10 +26,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.mysql</groupId>
-      <artifactId>connectorj</artifactId>
-      <version>5.1.12</version>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.18</version>
     </dependency>
+
   </dependencies>
 
   <build>
