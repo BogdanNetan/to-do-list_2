@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class App 
 {
-    public static void main( String[] args ) throws IOException, SQLException {
+    public static void main( String[] args ) throws IOException, SQLException, ClassNotFoundException {
         TaskRepository taskRepository = new TaskRepository();
            CreateTaskRequest request = new CreateTaskRequest();
         request.setDescription("Learn JDBC");
@@ -29,10 +29,12 @@ public class App
 
 //        UpdateTaskRequest request = new UpdateTaskRequest();
 //        request.setDone(true);
-//
-//        taskRepository.updateTask(1, request);
 
+////
+//        taskRepository.updateTask(1, request);
+//
 //        taskRepository.deleteTask(1);
+
 
 
 

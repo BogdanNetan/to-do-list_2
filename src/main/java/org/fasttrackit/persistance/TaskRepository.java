@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TaskRepository {
 
-    public void createTask(CreateTaskRequest request) throws IOException, SQLException {
+    public void createTask(CreateTaskRequest request) throws IOException, SQLException, ClassNotFoundException {
 // PREVENTING SQL INJECTION by avoiding concatenation and using prepared statement
         String sql = " INSERT INTO task (description, deadline) VALUES ( ?,?) ";
 
@@ -26,11 +26,11 @@ public class TaskRepository {
         }
     }
 
-    public void updateTask(long id, UpdateTaskRequest request) throws IOException, SQLException {
+    public void updateTask(long id, UpdateTaskRequest request) throws IOException, SQLException, ClassNotFoundException {
 // PREVENTING SQL INJECTION by avoiding concatenation and using prepared statement
-        String sql = "  UPDATE task set done = ? WHERE id = ? ";
+            String sql = "  UPDATE task SET done =?  WHERE id = ? ";
 
-        try (Connection connection = DatabaseConfiguration.getConnection();
+                try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setBoolean(1, request.isDone());
@@ -40,20 +40,20 @@ public class TaskRepository {
         }
     }
 
-    public void deleteTask(long id) throws IOException, SQLException {
+    public void deleteTask(long id) throws IOException, SQLException, ClassNotFoundException {
 // PREVENTING SQL INJECTION by avoiding concatenation and using prepared statement
-        String sql = "DELETE FROM task WHERE id = ?";
+                String sql = "DELETE FROM task WHERE id = ?";
 
-        try (Connection connection = DatabaseConfiguration.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                try (Connection connection = DatabaseConfiguration.getConnection();
+                     PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setLong(1, id);
+                    preparedStatement.setLong(1, id);
 
-            preparedStatement.executeUpdate();
+                    preparedStatement.executeUpdate();
         }
     }
 
-    public List<Task> getTask() throws IOException, SQLException {
+    public List<Task> getTask() throws IOException, SQLException, ClassNotFoundException {
         String sql = " SELECT id, description, deadline, done FROM task ";
         try (Connection connection = DatabaseConfiguration.getConnection();
              Statement statement = connection.createStatement();
@@ -64,8 +64,8 @@ public class TaskRepository {
                 Task task = new Task();
                 task.setId(resultSet.getLong("id"));
                 task.setDescription((resultSet.getString("description")));
-                task.setDeadline(resultSet.getDate(" deadline").toLocalDate());
-                task.setDone(resultSet.getBoolean(" done "));
+                task.setDeadline(resultSet.getDate("deadline").toLocalDate());
+                task.setDone(resultSet.getBoolean("done"));
 
                 tasks.add(task);
             }
